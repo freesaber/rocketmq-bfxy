@@ -21,7 +21,7 @@ public class Producer {
                     "test_quick_topic", // 主题
                     "TagA", // TAG
                     "key" + i, // KEY：用作唯一标识
-                    ("Hello RocketMQ" + i).getBytes() // 内容
+                    ("Hello RocketMQ" + i).getBytes() // 内容:字节类型
             );
             // 发送消息
             SendResult send = producer.send(message);
