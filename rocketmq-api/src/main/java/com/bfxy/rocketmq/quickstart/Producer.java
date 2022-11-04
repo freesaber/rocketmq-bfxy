@@ -3,12 +3,12 @@ package com.bfxy.rocketmq.quickstart;
 import com.bfxy.rocketmq.constants.Const;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendCallback;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.client.producer.SendStatus;
+import org.apache.rocketmq.client.producer.*;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.exception.RemotingException;
+
+import java.util.List;
 
 public class Producer {
     public static void main(String[] args) throws MQClientException, RemotingException, InterruptedException, MQBrokerException {
@@ -27,14 +27,23 @@ public class Producer {
             );
 
             // 设置延迟发送
-            if(i == 1){
-                message.setDelayTimeLevel(3);
-            }
+//            if(i == 1){
+//                message.setDelayTimeLevel(3);
+//            }
+
+            // 指定队列(默认4个队列)：1会传递给回调的arg
+            producer.send(message, new MessageQueueSelector() {
+                @Override
+                public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+                    Integer queueNumber = (Integer)arg;
+                    return mqs.get(queueNumber);
+                }
+            }, 1);
 
             // 2.1 同步发送消息
-            SendResult send = producer.send(message);
-            SendStatus status = send.getSendStatus();// 失败，需要做补偿
-            System.out.println("消息发出" + send);
+//            SendResult send = producer.send(message);
+//            SendStatus status = send.getSendStatus();// 失败，需要做补偿
+//            System.out.println("消息发出" + send);
 
             // 2.2 异步发送消息
 //            producer.send(message, new SendCallback() {
