@@ -14,6 +14,7 @@ import java.util.List;
 
 public class Consumer {
     public static void main(String[] args) throws MQClientException {
+        
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_quick_consumer_name");
         consumer.setNamesrvAddr(Const.NAMESRV_ADDR);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
