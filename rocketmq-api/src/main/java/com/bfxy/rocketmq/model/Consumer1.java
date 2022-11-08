@@ -18,6 +18,8 @@ public class Consumer1 {
             DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(group_name);
             consumer.setNamesrvAddr(Const.NAMESRV_ADDR);
             consumer.subscribe("test_model_topic","*");
+            // 集群模式，不知道消息会被投递到什么队列
+            // 广播模式，同一个ConsumerGroup里的Consumer都消费订阅Topic全部信息
             consumer.setMessageModel(MessageModel.CLUSTERING); // 默认集群模式
             consumer.registerMessageListener(new Listener());
             consumer.start();
