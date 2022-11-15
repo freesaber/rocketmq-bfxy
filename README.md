@@ -1,7 +1,7 @@
 # rocketmq-bfxy
 [慕课网 RocketMQ核心技术精讲与高并发抗压实战](https://coding.imooc.com/class/chapter/292.html)
 
-- 本地开启RocketMQ
+- RocketMQ
 ```yaml
 version: '3.5'
 services:
@@ -78,4 +78,36 @@ brokerRole = ASYNC_MASTER
 flushDiskType = ASYNC_FLUSH  
 # 如果是本地程序调用云主机 mq，这个需要设置成 云主机 IP
 brokerIP1=192.168.10.152
+```
+
+- zookeeper
+```yaml
+version: '3'
+services:
+  zookeeper:
+    image: zookeeper
+    # restart: always
+    container_name: zookeeper
+    volumes:
+      - D:\docker-v\zookeeper\config:/conf
+      - D:\docker-v\zookeeper\data:/data
+      - D:\docker-v\zookeeper\logs:/datalog
+    ports: 
+      - "2181:2181"
+```
+
+- zoo.conf
+```properties
+dataDir=/data
+dataLogDir=/datalog
+tickTime=2000
+initLimit=5
+syncLimit=2
+autopurge.snapRetainCount=3
+autopurge.purgeInterval=0
+maxClientCnxns=60
+standaloneEnabled=true
+admin.enableServer=true
+server.1=localhost:2888:3888;2181
+4lw.commands.whitelist=*
 ```
