@@ -1,12 +1,12 @@
-package com.bfxy.order;
+package com.bfxy.store;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = { "com.bfxy.order.*" , "com.bfxy.order.config.*"})
-@MapperScan(basePackages = "com.bfxy.order.mapper")
+@MapperScan(basePackages = "com.bfxy.store.mapper")
+@ComponentScan(basePackages = {"com.bfxy.store.*", "com.bfxy.store.config.*"})
 public class MainConfig {
 
 }
