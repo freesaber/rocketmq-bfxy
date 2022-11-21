@@ -18,6 +18,9 @@
     <modules>
         <module>bfxy-order</module>
         <module>bfxy-store</module>
+        <module>bfxy-paya</module>
+        <module>bfxy-payb</module>
+        <module>bfxy-pkg</module>
     </modules>
 
     <properties>
